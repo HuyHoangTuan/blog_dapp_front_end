@@ -2,11 +2,14 @@ import React from "react";
 
 class GUILoading extends React.Component
 {
+    constructor(props)
+    {
+        super(props);
+    }
 
     render()
     {
-        return
-        (
+        return(
             <div>
                 Loading...
             </div>

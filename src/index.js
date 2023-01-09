@@ -1,13 +1,16 @@
 import {React, StrictMode} from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-import {Routes} from './pages/Routes';
-ReactDOM.render(
-	<StrictMode>
+import { RouterProvider } from 'react-router-dom';
+import CustomRouter from './module/router/Router';
 
-	</StrictMode>,
-	document.getElementById('root')
-);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(
+	<StrictMode>
+		<RouterProvider router={CustomRouter}/>
+	</StrictMode>
+)
 // const root = ReactDOM.createRoot(document.getElementById('root'));
 // root.render(
 //   <React.StrictMode>
