@@ -14,3 +14,15 @@ export function log(...str)
     });
     console.log("LOG: "+output);
 }
+
+export function isMetaMaskInstalled()
+{
+    const {ethereum} = window;
+    // console.log(window);
+    // console.log(window.ethereum);
+    if(ethereum && ethereum.isMetaMask)
+    {
+        return true;
+    }
+    return false;
+}
