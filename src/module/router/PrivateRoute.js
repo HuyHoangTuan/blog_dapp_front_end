@@ -1,6 +1,6 @@
 import React from 'react';
-import {Route, Navigate} from 'react-router-dom';
-import { isLogedIn, log } from '../../utils/Utilities';
+import {Navigate} from 'react-router-dom';
+import { isLogedIn } from '../../utils/Utilities';
 
 
 function PrivateRoute(params)
@@ -8,7 +8,7 @@ function PrivateRoute(params)
      let auth = isLogedIn();
      // console.log("test1: "+JSON.stringify(params.children.props));
      return(
-          auth ? params.children: <Navigate to = "/login" replace = {true} stat = {{from: params.path}}/>
+          auth ? params.children: <Navigate to = "/login" replace = {true} state = {{from: params.path}}/>
      );
 }
 

@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 // bootstrap
 import Button from 'react-bootstrap/Button';
 import Alert from "react-bootstrap/Alert";
+
 // css
 import './css/GUILogin.css'
 
@@ -11,6 +12,7 @@ import MetaMaskOnboarding from '@metamask/onboarding';
 
 // Utility
 import { isMetaMaskInstalled } from "../../utils/Utilities";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // inline_style
 const login_btn = {
@@ -23,7 +25,8 @@ const login_btn = {
 const GUILogin = () =>
 {
       // url params
-      // let params = useParams();
+      // let params = useNavigate();
+      // console.log("test1: "+JSON.stringify(params));
 
       // ref
       let btnLoginRef = useRef();
@@ -36,79 +39,21 @@ const GUILogin = () =>
       const CONNECT = "Connect";
       const CONNECTED = "Connected";
 
-      let [btnLoginText, setBtnLoginText]  = useState(CONNECT);
+
       let [isAvailableMetaMask, setAvaiableMetatMask] = useState(false);
+      let [accounts, setAccounts] = useState([]);
+      let [btnLoginText, setBtnLoginText]  = useState(CONNECT);
       let [metaMaskRes, setMetaMaskRes] = useState({});
       let [alertInfo, setAlertInfo] = useState({isShowAlert: false, message: ''});
-      // console.log("GUILogin params: "+JSON.stringify(params));
       
-      
-
-      // handle connect to metamask
-      // let handleClickLoginBtn = async () =>{
-      //       let btn_login = btn_login_ref.current;
-            
-      //       let _handleAvailableMetaMask = async () => {
-      //             btn_login.innerText = "Connecting";
-      //             btn_login.disabled = true;
-                  
-      //             let func_connect = async () => {
-      //                   let output = {};
-      //                   try 
-      //                   {
-      //                         let {ethereum} = window;
-      //                         output = await ethereum.request(
-      //                               {
-      //                                     method: 'eth_requestAccounts'
-      //                               }
-      //                         );
-      //                   }
-      //                   catch(e)
-      //                   {
-      //                         output = e;
-      //                   }
-      //                   return output
-      //             }
-
-      //             let res = await func_connect();
-      //             console.log(res);
-      //             if(res.code === 4001)
-      //             {
-      //                   btn_login.innerText = "Failed to connecto to MetaMask"
-      //                   btn_login.disabled = true;
-
-      //                   let func_reconnect = () => {
-      //                         btn_login.innerText = "Trying to reconnect";
-      //                         btn_login.disabled = true;
-      //                         // func_reconnect();
-      //                   };
-                        
-      //                   setTimeout(() => {
-      //                         func_reconnect();
-
-      //                   }, 3000);
-                        
-      //             }
-      //             else
-      //             {
-      //                   // todo: redirect to main page
-      //                   btn_login.innerText = "Connected";
-      //                   btn_login.disabled = true;
-      //             }
-      //       }
-
-      //       let _handleUnAvailableMetaMask = async () => {
-
-      //       }
-      //       if(isAvailableMetaMask)
-      //       {
-      //             _handleAvailableMetaMask();
-      //       }
-      //       else
-      //       {
-      //             _handleUnAvailableMetaMask();
-      //       }
-      // }
+      // navigate - redirect
+      let navigate = useNavigate();
+      let location = useLocation();
+      let prevPath = "/";
+      if(location.state != null && location.state.from != null)
+      {
+            prevPath = location.state.from;
+      }
 
       // for handle click
       const _handleClickLoginBtn = function() 
@@ -134,6 +79,7 @@ const GUILogin = () =>
             const _handleUnAvailableMetaMask = function()
             {
                   setBtnLoginText(INSTALLING_METAMASK);
+                  metaMaskOnboardingRef.current.startOnboarding();
             }
 
             if(isAvailableMetaMask === true)
@@ -177,9 +123,25 @@ const GUILogin = () =>
             }
       }
 
+      // useEffect
       // every re-render
       useEffect(() => {
-            setAvaiableMetatMask(isMetaMaskInstalled());
+            // passing to next frame to process
+            setTimeout(() => {
+                  setAvaiableMetatMask(isMetaMaskInstalled());
+            }, 0);
+
+            let localAccounts = JSON.parse(localStorage.getItem("accounts"));
+            if(localAccounts == null || (localAccounts != null && localAccounts.length == 0))
+            {
+                  localStorage.setItem("accounts", JSON.stringify([]));
+            }
+            else
+            {
+                  setTimeout(() => {
+                        setAccounts(localAccounts);
+                  },0);
+            }
       }, []);
       
       // for every re-render, only perform when isAvailableMetaMask was changed
@@ -204,7 +166,13 @@ const GUILogin = () =>
             switch (btnLoginText)
             {
                   case CONNECTING:
+                        btnLogin.disabled = true;
+                        break;
+
                   case INSTALLING_METAMASK:
+                        btnLogin.disabled = true;
+                        break;
+
                   case CONNECTED:
                         btnLogin.disabled = true;
                         break;
@@ -220,7 +188,7 @@ const GUILogin = () =>
       useEffect(() => {
             let code = metaMaskRes.code;
             let message = metaMaskRes.message;
-
+            // console.log(metaMaskRes);
             switch (code)
             {
                   case 4001:
@@ -239,9 +207,28 @@ const GUILogin = () =>
                                     message: ""
                               }
                         );
+                        let accounts = metaMaskRes;
+                        setAccounts(accounts);
                         break;
             }
       }, [metaMaskRes]) ;
+
+      useEffect(() => {
+            if(accounts.length > 0)
+            {
+                  console.log("cached accounts: "+JSON.stringify(accounts));
+                  localStorage.setItem("accounts", JSON.stringify(accounts));
+                  navigate(
+                        prevPath,
+                        {
+                              state: {
+                                    from:"/login"
+                              }
+                        }
+                  )
+            }
+      }, [accounts]);
+
       return(
             <>
                   <Alert
