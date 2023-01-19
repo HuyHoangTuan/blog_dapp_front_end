@@ -1,14 +1,8 @@
 .login-container
 {
+    position: absolute;
+    top: 0%;
+    left: 0%;
     width: 100vw;
     height: 100vh;
-}
-.login-btn
-{
-    position: absolute;
-    width: 180px;
-    height: 180px;
-    top: 50vh;
-    left: 50vw;
-    transform: translateY(-50%);
 }
