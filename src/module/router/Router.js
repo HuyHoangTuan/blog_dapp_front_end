@@ -6,7 +6,7 @@ import { isLogedIn } from "../../utils/Utilities";
 import GUILoading from "../../pages/loading/GUILoading";
 import GUILogin from "../../pages/login/GUILogin";
 import GUIHome from "../../pages/home/GUIHome";
-
+import Newstory from "../../pages/NewStory/Newstory";
 
 const CustomRouter = createBrowserRouter(
     createRoutesFromElements(
@@ -35,7 +35,18 @@ const CustomRouter = createBrowserRouter(
                 <GUILoading/> 
             }
         />,
-
+        <Route
+        path ="/Newstory"
+        loader = {
+            (props) => {
+                console.log("Newstory loader: "+JSON.stringify(props));
+                return props;
+            }
+        }
+        element = {
+             <Newstory/>
+        }
+        />,
             <Route
                 path ="/login"
                 loader = {

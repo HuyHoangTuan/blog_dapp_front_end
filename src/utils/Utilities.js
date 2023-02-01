@@ -26,3 +26,17 @@ export function isMetaMaskInstalled()
     }
     return false;
 }
+export function isLoading(){
+    return (
+        <div classname="Loading">
+            hello
+            <img
+            classname = "logo"
+            src ="logo192.png"
+            ></img> 
+            <h1 className = "title">
+            hello xin chào bạn
+            </h1>
+            </div>
+    )
+}
