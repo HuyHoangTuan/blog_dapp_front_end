@@ -30,7 +30,7 @@ const CustomRouter = createBrowserRouter(
                     console.log("GUILoading loader: "+JSON.stringify(props));
                     return props;
                 }
-            }
+            } 
             element = {
                 <GUILoading/> 
             }

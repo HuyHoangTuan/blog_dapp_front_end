@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./css/GUIHome.css";
 import axios from "axios";
-import BlogCard from "../../components/BlogCard"
+import BlogCard from "../../Blog/BlogCard"
 
 
 const GUIHome = () => {
