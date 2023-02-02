@@ -132,7 +132,7 @@ const GUILogin = () =>
             }, 0);
 
             let localAccounts = JSON.parse(localStorage.getItem("accounts"));
-            if(localAccounts == null || (localAccounts != null && localAccounts.length == 0))
+            if(localAccounts == null || (localAccounts != null && localAccounts.length === 0))
             {
                   localStorage.setItem("accounts", JSON.stringify([]));
             }
