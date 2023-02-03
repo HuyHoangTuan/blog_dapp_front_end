@@ -1,9 +1,14 @@
 
-
 export function isLogedIn()
 {
     // todo: check function
-    return false;
+    let accounts = [];
+    if (localStorage.getItem("accounts") != null)
+    {
+        accounts = JSON.parse(localStorage.getItem("accounts"));
+    }
+    console.log("connected accounts: "+ JSON.stringify(accounts));
+    return accounts.length>0;
 }
 
 export function log(...str)
