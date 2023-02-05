@@ -82,13 +82,11 @@ export function decodeData(encodedData)
     return encodedData;
 }
 
-export async function addFileToIPFS(filePath, content)
+export async function addFileToIPFS(filePath, content, warpWithDirectory = true)
 {
-    // console.log('adding a file to IPFS: '+ JSON.stringify(content));
-    // console.log(await _getNodeIPFS());
     let node = await _getNodeIPFS();
     let options = {
-        warpWithDirectory: true
+        warpWithDirectory: warpWithDirectory
     }
     let result = await node.add(
         {
@@ -97,12 +95,6 @@ export async function addFileToIPFS(filePath, content)
         },
         options
     );
-    // let str = new TextDecoder().decode(result.cid.bytes)
-    // console.log(str);
-    // console.log(result.cid.toString());
-    // console.log(result);
-    // let res = await retrieveConternFromIPFS(result.cid.toString()) ;
-    // console.log(res);
     return  result;
 }
 
@@ -113,10 +105,7 @@ export async function retrieveConternFromIPFS(hashAddress)
     for await(let chunk of node.cat(hashAddress))
     {
         data = data + Buffer.from(chunk).toString();
-        // chunks.push(chunk);
     }
-    // let test = await node.cat(hashAddress);
-    // console.log(data);
     return JSON.parse(decodeData(data));
 }
 
