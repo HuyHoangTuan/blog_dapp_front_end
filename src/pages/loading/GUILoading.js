@@ -1,20 +1,10 @@
-import React from "react";
+import BlogPort from "../../Blog/BlogPost";
+import "./css/GUILoading.css";
 
-class GUILoading extends React.Component
-{
-    constructor(props)
-    {
-        super(props);
-    }
-
-    render()
-    {
-        return(
-            <div>
-                Loading...
-            </div>
-        )
-    }
+export default function GUILoading() {
+  return (
+    <div className="single">
+      <BlogPort />
+    </div>
+  );
 }
-
-export default GUILoading;

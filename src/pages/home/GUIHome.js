@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import "./css/GUIHome.css";
 import axios from "axios";
-import BlogCard from "../../module/components/BlogCard"
-import SearchBar from "../../module/components/search_bar/SearchBar"
-import Menubar from "../../module/components/menu_bar/MenuBar";
+import BlogCard from "../../Blog/BlogCard"
 
 
 const GUIHome = () => {

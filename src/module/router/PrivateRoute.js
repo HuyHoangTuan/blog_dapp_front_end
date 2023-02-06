@@ -7,6 +7,7 @@ function PrivateRoute(params)
 {
      let auth = isLogedIn();
      // console.log("test1: "+JSON.stringify(params.children.props));
+     
      return(
           auth ? params.children: <Navigate to = "/login" replace = {true} state = {{from: params.path}}/>
      );

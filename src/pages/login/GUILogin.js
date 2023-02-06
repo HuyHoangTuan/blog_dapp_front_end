@@ -131,10 +131,10 @@ const GUILogin = () =>
                   setAvaiableMetatMask(isMetaMaskInstalled());
             }, 0);
 
-            let localAccounts = JSON.parse(localStorage.getItem("accounts"));
-            if(localAccounts == null || (localAccounts != null && localAccounts.length == 0))
+            let localAccounts = JSON.parse(sessionStorage.getItem("accounts"));
+            if(localAccounts == null || (localAccounts != null && localAccounts.length === 0))
             {
-                  localStorage.setItem("accounts", JSON.stringify([]));
+                  sessionStorage.setItem("accounts", JSON.stringify([]));
             }
             else
             {
@@ -217,7 +217,8 @@ const GUILogin = () =>
             if(accounts.length > 0)
             {
                   console.log("cached accounts: "+JSON.stringify(accounts));
-                  localStorage.setItem("accounts", JSON.stringify(accounts));
+                  sessionStorage.setItem("accounts", JSON.stringify(accounts));
+                  
                   navigate(
                         prevPath,
                         {
@@ -226,6 +227,7 @@ const GUILogin = () =>
                               }
                         }
                   )
+                  
             }
       }, [accounts]);
 
