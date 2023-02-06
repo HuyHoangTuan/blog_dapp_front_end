@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import "./css/GUIHome.css";
 import axios from "axios";
 import BlogCard from "../../Blog/BlogCard"
-
-
+import Menubar from "../../module/components/menu_bar/MenuBar";
+import SearchBar from "../../module/components/search_bar/SearchBar"
 const GUIHome = () => {
 
   const [blogs, setBlogs] = useState([{
