@@ -8,7 +8,7 @@ import Alert from "react-bootstrap/Alert";
 import './css/GUILogin.css'
 
 // metamask
-import MetaMaskOnboarding from '@metamask/onboarding';
+ import MetaMaskOnboarding from '@metamask/onboarding';
 
 // Utility
 import { isMetaMaskInstalled } from "../../utils/Utilities";

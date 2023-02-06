@@ -20,9 +20,9 @@ const CustomRouter = createBrowserRouter(
                     }
                 }
                 element = {
-                    <PrivateRoute path ="/">
-                        <GUIHome/>
-                    </PrivateRoute>
+                    //<PrivateRoute path ="/">
+                       <GUIHome/>
+                    //</PrivateRoute>
                     // isLogedIn() === true ? <GUIHome/> : <Navigate to = "/login" replace = {true}/>
                 }
             />,
