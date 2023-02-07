@@ -16,7 +16,7 @@ const SearchBar = ({ formSubmit, value, handleSearchKey, clearSearch }) => {
         },
     ];
     return (
-        <div className="search_bar">
+        <div className="search">
             <div className='searchBar-wrap'>
                 <form onSubmit={formSubmit}>
                     <input

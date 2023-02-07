@@ -1,0 +1,46 @@
+.menu_bar {
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  width: auto;
+}
+
+.logo {
+  display: flex;
+  padding: 10px;
+  gap: 14px;
+  height: 50px;
+  justify-content: start;
+  align-items: center;
+  text-decoration: none !important;
+  color: #674188;
+}
+
+.sidebarLogo {
+  color: #674188;
+}
+
+.menuItems {
+  display: flex;
+  justify-content: start;
+  gap: 14px;
+  margin-top: 20px;
+  align-items: center;
+  font-weight: 600;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 1000px;
+  color: #674188 !important;
+  text-decoration: none !important;
+}
+
+.menuItems:hover {
+  cursor: pointer;
+}
+
+.logout {
+  color: #674188;
+  gap: 5px;
+  padding: 10px;
+  cursor: pointer;
+}

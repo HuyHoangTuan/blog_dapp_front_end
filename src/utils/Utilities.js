@@ -109,3 +109,15 @@ export async function retrieveConternFromIPFS(hashAddress)
     return JSON.parse(decodeData(data));
 }
 
+export function getData()
+{
+    let data = {
+        title: "Jays First Blog",
+        content: "Hey I'm Jay! Blockchain developer advocate from Helsinki Finland.\n\nI can't wait to see where this space evolves.",
+        num_medals: 10,
+        owner: "David",
+        posted_time: "Mar 21"
+    }
+
+    return data;
+}

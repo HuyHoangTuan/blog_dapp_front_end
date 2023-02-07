@@ -1,0 +1,27 @@
+.blog_page {
+    display: flex;
+}
+
+.menu_bar {
+    position: absolute;
+    width: 4%;
+    height: 100%;
+    left: 0%;
+    background-color: #C3ACD0;
+}
+
+.search_bar {
+    position: absolute;
+    width: 30%;
+    height: 100%;
+    right: 0%;
+    background-color: #C3ACD0;
+}
+
+.main {
+    position: absolute;
+    width: 66%;
+    height: 100%;
+    right: 30%;
+    background-color: #FFFBF5;
+}
