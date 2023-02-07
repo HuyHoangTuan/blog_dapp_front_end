@@ -98,7 +98,7 @@ const ExpandMore = styled((props) => {
 const BlogCard = ({ id }) => {
 
   let data = getData();
-  console.log(data);
+  // console.log(data);
 
   const length = 100;
   const trimmedString = data.content.length > 100 ?
