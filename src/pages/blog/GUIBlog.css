@@ -4,24 +4,26 @@
 
 .menu_bar {
     position: absolute;
-    width: 4%;
+    width: 6%;
     height: 100%;
     left: 0%;
-    background-color: #C3ACD0;
+    background-color: #FFFBF5;
+    border-right: 1px solid rgb(63, 63, 63, 0.4);
 }
 
 .search_bar {
     position: absolute;
-    width: 30%;
+    width: 23%;
     height: 100%;
     right: 0%;
-    background-color: #C3ACD0;
+    background-color: #FFFBF5;
+    border-left: 1px solid rgb(63, 63, 63, 0.4);
 }
 
 .main {
     position: absolute;
-    width: 66%;
+    width: 71%;
     height: 100%;
-    right: 30%;
+    right: 23%;
     background-color: #FFFBF5;
 }

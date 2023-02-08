@@ -1,7 +1,15 @@
 .search {
     width: 100%;
     padding: 10px;
+    height: 100vh;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-y: scroll;
 }
+
+.search::-webkit-scrollbar {
+    display: none;
+  }
 
 .search_input {
     display: flex;

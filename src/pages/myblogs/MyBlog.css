@@ -1,0 +1,28 @@
+.home_container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    height: 100vh;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-y: scroll; 
+  }
+  
+  .home_container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .home_blogs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .home_header {
+    margin-top: 40px;
+    margin-bottom: 30px;
+    font-size: 25px;
+    font-weight: bold;
+    color: rgb(63, 63, 63, 0.9);
+  }

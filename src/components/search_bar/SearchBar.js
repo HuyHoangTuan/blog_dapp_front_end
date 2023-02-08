@@ -29,7 +29,7 @@ const SearchBar = ({ formSubmit, value, handleSearchKey, clearSearch }) => {
                     <button>Go</button>
                 </form>
             </div>
-            {(results.length != 0) ? (
+            {(results.length !== 0) ? (
                 <div className="trends">
                     {results.map((e, i) => {
                         return (

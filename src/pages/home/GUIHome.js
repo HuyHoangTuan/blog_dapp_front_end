@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid';
 import "./css/GUIHome.css";
 import axios from "axios";
 import BlogCard from "../../components/blog_card/BlogCard";
+import { getListBlogs } from "../../utils/Utilities";
 const GUIHome = () => {
 
   const [blogs, setBlogs] = useState([{
@@ -42,39 +43,32 @@ const GUIHome = () => {
   //   }
   // }, []);
 
-  const blogsContent = ['1', '2', '2', '2', '2', '2', '2']
-
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }));
+  const blogsContent = getListBlogs();
 
   return (
     <div className="home_container">
       <div className="home_header">Recommended Blogs</div>
-      {/* <div className="home_blogs">
-        {blogsContent &&
+      <div className="home_blogs">
+        {/* {blogsContent &&
           blogsContent.map((blog, i) => {
             return (
               <BlogCard
                 id={blog}
               />
             );
-          })}
-      </div> */}
+          })} */}
+        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 1, sm: 1, md: 1 }}>
+          {Array.from(blogsContent).map((blog, index) => (
+            <Grid item xs={1} sm={1} md={1} key={index}>
+              <BlogCard
+                id={blog}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      </div>
 
-      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-        {Array.from(blogsContent).map((blog, index) => (
-          <Grid item xs={2} sm={4} md={4} key={index}>
-            <BlogCard
-              id={blog}
-            />
-          </Grid>
-        ))}
-      </Grid>
+
     </div>
   );
 };
