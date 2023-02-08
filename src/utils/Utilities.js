@@ -65,7 +65,8 @@ export function makeIPFSData({title, content, num_medals, owner})
         title: title,
         content: content,
         num_medals: num_medals,
-        owner: owner
+        owner: owner,
+        // image: base64
     }
 
     return encodeData(JSON.stringify(data));

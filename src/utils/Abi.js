@@ -3,14 +3,19 @@ import { getAccounts } from "./Utilities";
 
 var contract = null;
 var fees = null;
-var smartContractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
+var testNetSmartContractAddress = '0xd248A0e120ecd4899eaf999Bf3c36Ff688fd914d';
+// var smartContractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
+var smartContractAddress = testNetSmartContractAddress;
+var GAS_LIMIT = 3000000;
+
+
 export function getBlogItemContract()
 {
       if(contract == null)
       {
             let abi = require('../abi/BlogItem.json').abi;
             let address = smartContractAddress;
-            let host = 'http://127.0.0.1:8545';
+            let host = 'https://eth-goerli.g.alchemy.com/v2/0drTashIXwsB5eKpvK72nHrfdQf_nHbK';
             let web3 = new Web3(host);
             contract = new web3.eth.Contract(abi, address);
       }
@@ -24,18 +29,19 @@ export async function getFees()
       {
             let contract = getBlogItemContract();
             fees = await contract.methods.getFees().call();
+            console.log(`Fees: ${fees}`);
       }
       return fees;
 }
 
-export async function publishBlog(account, ipfsHashAddress)
+export async function publishBlog(ipfsHashAddress)
 {
       const {ethereum} = window;
       let fees = await getFees();
-      let gas = 3000000;
+      let gas = GAS_LIMIT;
       let contract = getBlogItemContract();
       
-      let encodedABI = contract.methods.publicBlog(account, ipfsHashAddress).encodeABI();
+      let encodedABI = contract.methods.publicBlog(ipfsHashAddress).encodeABI();
       let params = [
             {
                   from: getAccounts()[0],
@@ -44,25 +50,91 @@ export async function publishBlog(account, ipfsHashAddress)
                   gas: "0x"+gas.toString(16),
                   data: encodedABI
             }
-      ]
-      ethereum.request(
+      ];
+
+      let res = await ethereum.request(
             {
                   method: "eth_sendTransaction",
                   params: params
             }
-      ).then((response) => {
-            console.log(response);
-      }).catch((error) => {
-            console.log(error);
-      })
+      );
+      console.log(`public: ${res}`);
 }
 
 export async function getListUriOfAddress(account)
 {
-      const {ethereum} = window;
-      let gas = 3000000;
+      let gas = GAS_LIMIT;
       let contract = getBlogItemContract();
-      contract.methods.getListUriOfAddress(account).call({from: account, gas: gas}).then((list) => {
-            console.log(list);
-      }).catch((err) => {console.log(err)});
+      let res = await contract.methods.getListUriOfAddress(account).call({from: getAccounts()[0], gas: gas});
+      console.log(`List URI of address: ${account} --  ${res}`);
+}
+
+export async function editBlog(old_ipfsHashAddress, new_ipfsHashAddres)
+{
+      const {ethereum} = window;
+      let fees = await getFees();
+      let gas = GAS_LIMIT;
+      let contract = getBlogItemContract();
+
+      let encodedABI = contract.methods.editBlog(old_ipfsHashAddress, new_ipfsHashAddres).encodeABI();
+      let params = [
+            {
+                  from: getAccounts()[0],
+                  to: smartContractAddress,
+                  value: "0x"+fees.toString(16),
+                  gas: "0x"+gas.toString(16),
+                  data: encodedABI
+            }
+      ];
+
+      let res = await ethereum.request(
+            {
+                  method: "eth_sendTransaction",
+                  params: params
+            }
+      );
+      console.log(`edit: ${res}`);
+}     
+
+export async function giveMedalTo(ipfsHashAddress)
+{
+      const {ethereum} = window;
+      let fees = await getFees();
+      let gas = GAS_LIMIT;
+      let contract = getBlogItemContract();
+
+      let encodedABI = contract.methods.giveMedalToABlog(ipfsHashAddress).encodeABI();
+      let params = [
+            {
+                  from: getAccounts()[0],
+                  to: smartContractAddress,
+                  value: "0x"+fees.toString(16),
+                  gas: "0x"+gas.toString(16),
+                  data: encodedABI
+            }
+      ];
+
+      let res = await ethereum.request(
+            {
+                  method: "eth_sendTransaction",
+                  params: params
+            }
+      );
+      console.log(`give medal: ${res}`);
+}
+
+export async function getMedalOf(ipfsHashAddress)
+{
+      let gas = GAS_LIMIT;
+      let contract = getBlogItemContract();
+      let res = await contract.methods.getMedalOfUri(ipfsHashAddress).call({from: getAccounts()[0], gas: gas});
+      console.log(`Get meadl: ${res}`);
+}
+
+export async function getAllPublishedBlogs()
+{
+      let gas = GAS_LIMIT;
+      let contract = getBlogItemContract();
+      let res = await contract.methods.getAllPublishedUri().call({from: getAccounts()[0], gas: gas});
+      console.log(`All published blogs: ${res}`);
 }

@@ -11,9 +11,9 @@ import './css/GUILogin.css'
 import MetaMaskOnboarding from '@metamask/onboarding';
 
 // Utility
-import { getAccounts, isMetaMaskInstalled } from "../../utils/Utilities";
+import {isMetaMaskInstalled } from "../../utils/Utilities";
 import { useLocation, useNavigate } from "react-router-dom";
-import { publishBlog, getListUriOfAddress } from "../../utils/Abi";
+
 // inline_style
 const login_btn = {
       position: "absolute",
@@ -219,8 +219,9 @@ const GUILogin = () =>
                   console.log("cached accounts: "+JSON.stringify(accounts));
                   sessionStorage.setItem("accounts", JSON.stringify(accounts));
                   // let func = async () => {
+
+                  //       await publishBlog("huyht5");
                   //       await getListUriOfAddress(getAccounts()[0]);
-                  //       // let fees = await publishBlog(getAccounts()[0],"Qmd7DuscoYu3bqBavGxcxvoR1yZDhp8B4sNncyorZphucM")
                   // }
                   // func();
                   navigate(
