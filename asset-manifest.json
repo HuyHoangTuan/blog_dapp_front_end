@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/blog_dapp_front_end/static/css/main.003c1d24.css",
+    "main.js": "/blog_dapp_front_end/static/js/main.1c8888b0.js",
+    "static/js/787.8e270606.chunk.js": "/blog_dapp_front_end/static/js/787.8e270606.chunk.js",
+    "static/media/rpc.cjs": "/blog_dapp_front_end/static/media/rpc.3ba5ca7bdb004060d5e2.cjs",
+    "index.html": "/blog_dapp_front_end/index.html",
+    "main.003c1d24.css.map": "/blog_dapp_front_end/static/css/main.003c1d24.css.map",
+    "main.1c8888b0.js.map": "/blog_dapp_front_end/static/js/main.1c8888b0.js.map",
+    "787.8e270606.chunk.js.map": "/blog_dapp_front_end/static/js/787.8e270606.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.003c1d24.css",
+    "static/js/main.1c8888b0.js"
+  ]
+}
