@@ -1,15 +1,14 @@
 
 import * as IPFS from 'ipfs-core';
 import {Buffer} from 'buffer'; 
+import { getBlogItemContract, getFees, publishBlog } from './Abi';
 // const node_ipfs = await IPFS.create();
 var node_ipfs = null;
+
 async function _getNodeIPFS()
 {
     if(node_ipfs == null) node_ipfs = await IPFS.create();
-    // console.log(node_ipfs);
     return node_ipfs;
-    // if(node_ipfs == null) node_ipfs = await IPFS.create();
-    // return node_ipfs;
 }
 export function isLogedIn()
 {
@@ -28,7 +27,7 @@ export function getAccounts()
     let accounts = [];
     if (sessionStorage.getItem("accounts") != null)
     {
-        accounts = JSON.parse(sessionStorage.getItem(accounts));
+        accounts = JSON.parse(sessionStorage.getItem("accounts"));
     }
     if(accounts == null) accounts = [];
     return accounts;
