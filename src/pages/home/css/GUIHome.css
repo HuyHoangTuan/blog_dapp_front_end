@@ -6,7 +6,8 @@
   height: 100vh;
   -ms-overflow-style: none;
   scrollbar-width: none;
-  overflow-y: scroll; 
+  overflow-y: scroll;
+  padding-bottom: 50px;
 }
 
 .home_container::-webkit-scrollbar {

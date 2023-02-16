@@ -3,7 +3,7 @@ import { getAccounts } from "./Utilities";
 
 var contract = null;
 var fees = null;
-var testNetSmartContractAddress = '0xd248A0e120ecd4899eaf999Bf3c36Ff688fd914d';
+var testNetSmartContractAddress = '0x50529820F026B07DC9cfe8adEF4e646a70399E7e';
 // var smartContractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 var smartContractAddress = testNetSmartContractAddress;
 var GAS_LIMIT = 3000000;
@@ -66,7 +66,8 @@ export async function getListUriOfAddress(account)
       let gas = GAS_LIMIT;
       let contract = getBlogItemContract();
       let res = await contract.methods.getListUriOfAddress(account).call({from: getAccounts()[0], gas: gas});
-      console.log(`List URI of address: ${account} --  ${res}`);
+      // console.log(`List URI of address: ${account} --  ${res}`);
+      return res;
 }
 
 export async function editBlog(old_ipfsHashAddress, new_ipfsHashAddres)
@@ -121,6 +122,7 @@ export async function giveMedalTo(ipfsHashAddress)
             }
       );
       console.log(`give medal: ${res}`);
+      return res;
 }
 
 export async function getMedalOf(ipfsHashAddress)
@@ -129,6 +131,7 @@ export async function getMedalOf(ipfsHashAddress)
       let contract = getBlogItemContract();
       let res = await contract.methods.getMedalOfUri(ipfsHashAddress).call({from: getAccounts()[0], gas: gas});
       console.log(`Get meadl: ${res}`);
+      return res;
 }
 
 export async function getAllPublishedBlogs()
@@ -137,4 +140,5 @@ export async function getAllPublishedBlogs()
       let contract = getBlogItemContract();
       let res = await contract.methods.getAllPublishedUri().call({from: getAccounts()[0], gas: gas});
       console.log(`All published blogs: ${res}`);
+      return res;
 }

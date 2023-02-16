@@ -5,30 +5,34 @@ import HomeIcon from "@mui/icons-material/Home";
 import BookIcon from "@mui/icons-material/Book";
 import Logout from "@mui/icons-material/Logout";
 import RateReviewIcon from "@mui/icons-material/RateReview";
-// import logo from "../images/m.png";
-
+import logo from "../../images/logo.png";
+import { getAccounts } from "../../utils/Utilities";
+import { logOut } from "../../utils/Utilities";
 const Menubar = () => {
 
-    const logOut = () => {
-        console.log("Log out!")
-    };
-    const navigate = useNavigate()
+
+    const navigate = useNavigate();
+
+    const onClickLogOut = () => {
+        logOut();
+        navigate("/login");
+    };  
 
     return (
         <div className="menubar">
-            <img className="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRetcb6__A8ysu5BpdtjjLDja0ritjT8UeTNg&usqp=CAU"></img>
+            <img className="logo" src={logo}></img>
             <div className="menu">
                 <div className="menuItems" onClick={() => { navigate('/') }}>
                     <HomeIcon sx={{ fontSize: 35 }}/>
                 </div>
-                <div className="menuItems" onClick={() => { navigate('/myBlogs') }}>
+                <div className="menuItems" onClick={() => { navigate(`/myBlogs/${getAccounts()[0]}`) }}>
                     <BookIcon sx={{ fontSize: 30 }}/>
                 </div>
-                <div className="menuItems" onClick={() => { navigate('/newStory') }}>
+                <div className="menuItems" onClick={() => { navigate('/newblog') }}>
                     <RateReviewIcon sx={{ fontSize: 30 }}/>
                 </div>
             </div>
-            <div className="logout" onClick={logOut}>
+            <div className="logout" onClick={onClickLogOut}>
                 <Logout sx={{ fontSize: 30 }}/>
             </div>
         </div>

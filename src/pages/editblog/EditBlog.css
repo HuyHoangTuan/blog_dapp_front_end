@@ -1,0 +1,57 @@
+.editBlog {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    height: 100vh;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-y: scroll;
+    padding-bottom: 20px;
+}
+
+.edit {
+    width: 90%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.edit h2 {
+    font-size: 20px;
+    color: #3e8445;
+    margin-bottom: 30px;
+}
+
+.edit .saveButton {
+    width: 80px;
+    background: #0f52ba;
+    color: #fff;
+    border: 0;
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.edit .saveButton:enabled {
+    cursor: pointer;
+}
+
+.edit .saveButton:disabled {
+    background: rgb(15, 82, 186, 0.5);
+    color: #fff;
+}
+
+.save {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.importImg {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+    align-items: center;
+    max-height: 30%;
+}

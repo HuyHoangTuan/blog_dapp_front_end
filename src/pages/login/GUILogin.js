@@ -11,7 +11,7 @@ import './css/GUILogin.css'
 import MetaMaskOnboarding from '@metamask/onboarding';
 
 // Utility
-import {isMetaMaskInstalled } from "../../utils/Utilities";
+import {isMetaMaskInstalled, logIn } from "../../utils/Utilities";
 import { useLocation, useNavigate } from "react-router-dom";
 
 // inline_style
@@ -19,7 +19,23 @@ const login_btn = {
       position: "absolute",
       top: "50%",
       left: "50%",
-      transform: "translateX(-50%)"
+      transform: "translate(-50%, -50%)",
+      backgroundColor: "#FFFBF5",
+      borderColor: "#FFFBF5",
+      color: "rgb(25, 135, 84)",
+      disabledColor: "#FFFBF5"
+}
+
+const green_bg = {
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      width: "1px",
+      height: "1px",
+      borderRadius: "50%",
+      transition: "width 2s, height 2s",
+      transform: "translate(-50%, -50%)",
+      backgroundColor: "#FFFBF5"
 }
 
 const GUILogin = () =>
@@ -30,6 +46,7 @@ const GUILogin = () =>
 
       // ref
       let btnLoginRef = useRef();
+      let greenBgRef = useRef();
       let metaMaskOnboardingRef = useRef();
 
       // variations
@@ -214,24 +231,22 @@ const GUILogin = () =>
       }, [metaMaskRes]) ;
 
       useEffect(() => {
-            if(accounts.length > 0)
+            if(accounts && accounts.length > 0)
             {
-                  console.log("cached accounts: "+JSON.stringify(accounts));
-                  sessionStorage.setItem("accounts", JSON.stringify(accounts));
-                  // let func = async () => {
-
-                  //       await publishBlog("huyht5");
-                  //       await getListUriOfAddress(getAccounts()[0]);
-                  // }
-                  // func();
-                  navigate(
-                        prevPath,
-                        {
-                              state: {
-                                    from:"/login"
+                  logIn(accounts);
+                  greenBgRef.current.style.width ="2000px";
+                  greenBgRef.current.style.height = "2000px";
+                  setTimeout(() => {
+                        navigate(
+                              prevPath,
+                              {
+                                    state: {
+                                          from:"/login"
+                                    }
                               }
-                        }
-                  )
+                        )
+                  }, 2.0*1000)
+                  
                   
             }
       }, [accounts]);
@@ -252,9 +267,15 @@ const GUILogin = () =>
                         </p>
                   </Alert>
                   <div className="login-container">
+                        <div
+                              style={green_bg}
+                              ref = {greenBgRef}
+                        >
+                              
+                        </div>
                         <Button 
                               style ={login_btn}
-                              variant="primary"
+                              variant="success"
                               size = 'lg'
                               onClick={_handleClickLoginBtn}
                               ref={btnLoginRef}

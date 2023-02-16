@@ -2,6 +2,7 @@
   "name": "blog_front_end",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://huyhoangtuan.github.io/blog_dapp_front_end/",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
@@ -14,6 +15,7 @@
     "axios": "^1.2.2",
     "bootstrap": "^5.2.3",
     "buffer": "^6.0.3",
+    "gh-pages": "^5.0.0",
     "ipfs-core": "^0.18.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
@@ -25,6 +27,8 @@
     "web3": "^1.8.2"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

@@ -4,31 +4,17 @@ import {Route, createBrowserRouter, createRoutesFromElements} from 'react-router
 import GUILogin from "../../pages/login/GUILogin";
 import PrivateRoute from "./PrivateRoute";
 import GUIBlog from "../../pages/blog/GUIBlog";
+import { _getNodeIPFS } from "../../utils/Utilities";
 
 
 const CustomRouter = createBrowserRouter(
     createRoutesFromElements(
         [
             <Route
-                path ="/"
-                loader = {
-                    (props) => {
-                        console.log("GUIHome loader: "+JSON.stringify(props));
-                        return props;
-                    }
-                }
-                element = {
-                    <PrivateRoute path ="/">
-                        <GUIBlog/>
-                    </PrivateRoute>
-                    // isLogedIn() === true ? <GUIHome/> : <Navigate to = "/login" replace = {true}/>
-                }
-            />,
-
-            <Route
                 path ="/login"
                 loader = {
-                    (props) => {
+                    async (props) => {
+                        await _getNodeIPFS();
                         console.log("GUILogin loader: "+JSON.stringify(props));
                         return props;
                     }
@@ -39,9 +25,10 @@ const CustomRouter = createBrowserRouter(
             />,
 
             <Route
-                path ="*"
+                path ="/*"
                 loader = {
-                    (props) => {
+                    async (props) => {
+                        let ipfs_node = await _getNodeIPFS();
                         console.log("GUIHome loader: "+JSON.stringify(props));
                         return props;
                     }
@@ -56,7 +43,10 @@ const CustomRouter = createBrowserRouter(
 
         ]
         
-    )
+    ),
+    {
+        basename: "/blog_dapp_front_end"
+    }
 )
 
 export default CustomRouter;

@@ -1,4 +1,5 @@
 import "./SearchBar.css";
+import SearchIcon from '@mui/icons-material/Search';
 
 const SearchBar = ({ formSubmit, value, handleSearchKey, clearSearch }) => {
     const results = [
@@ -26,7 +27,7 @@ const SearchBar = ({ formSubmit, value, handleSearchKey, clearSearch }) => {
                         onChange={handleSearchKey}
                     />
                     {value && <span onClick={clearSearch}>X</span>}
-                    <button>Go</button>
+                    <button><SearchIcon/></button>
                 </form>
             </div>
             {(results.length !== 0) ? (

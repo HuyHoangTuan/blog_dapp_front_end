@@ -1,7 +1,7 @@
 import "./BlogCard.css";
 import { useNavigate } from "react-router-dom";
 
-import { getData } from '../../utils/Utilities'
+import { convertMillisToString, getAccounts, getData, retrieveConternFromIPFS } from '../../utils/Utilities'
 
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
@@ -21,6 +21,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import EditIcon from '@mui/icons-material/Edit';
 import { Button, Box } from "@mui/material";
+import { useState, useEffect } from "react";
+import { getMedalOf, giveMedalTo } from "../../utils/Abi";
+import image from "../../images/image1.jpeg"
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -35,48 +38,109 @@ const ExpandMore = styled((props) => {
 
 const BlogCard = ({ id }) => {
 
-  let data = getData(id);
+  // let data = getData(id);
+  const [data, setData] = useState(
+    {
+      title: "",
+      content: "",
+      num_medals: 0,
+      owner: [""],
+      posted_time: 0,
+      hidden: false
+    }
+  );
+  const [medal, setMedal] = useState(0);
 
-  const navigate = useNavigate()
+  let cloneData = async () => {
+    let blogdata = await retrieveConternFromIPFS(id);
+    if (blogdata != null) {
+      setData(blogdata);
+    }
+  }
 
-  const length = 150;
-  const trimmedString = data.content.length > 150 ?
-    data.content.substring(0, length) :
-    data.content;
+  let getMedal = async () => {
+    let medalBlog = await getMedalOf(id);
+    setMedal(medalBlog);
+  }
 
-  const account = `${data.owner.slice(0, 1)}`.toUpperCase();
+  useEffect(() => {
+    cloneData();
+    getMedal();
+  }, []);
+
+  const navigate = useNavigate();
+
+  const length = 100;
+  const strippedHtml = data.content.replace(/<[^>]+>/g, '');
+  const trimmedString = strippedHtml.length > 100 ?
+    strippedHtml.substring(0, length) :
+    strippedHtml;
+
+  const account = `${data.owner[0].slice(4, 5)}`.toUpperCase();
+
+  const giveMedal = () => {
+    let func = async () => {
+      let res = await giveMedalTo(id);
+      setMedal(parseInt(medal) + 1);
+    }
+    func();
+  };
 
   const goToDetail = () => {
     navigate(`/blog/${id}`);
   };
 
   return (
-    <Card sx={{ maxWidth: "90%", bgcolor: "#DCDCDC", marginLeft: "5%" }}>
-      <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: "#243A73" }} aria-label="recipe">
-            {account}
-          </Avatar>
-        }
-        title={data.title}
-        subheader={data.posted_time}
-      />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {trimmedString}...
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon sx={{ color: "red" }} />
-          <div className="num_medals">{data.num_medals}</div>
-        </IconButton>
-        <Box width="100%" display={'flex'} justifyContent="flex-end">
-          <Button size="small" onClick={goToDetail}>See more</Button>
-        </Box>
+    <>
+      {
+        (data.title != "") && (
+          <Card sx={{ maxWidth: "84%", bgcolor: "#e5e4e2", marginLeft: "8%", borderRadius: "10px", marginBottom: "30px" }}>
+            <Box sx={{ display: 'flex' }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', width: "75%" }}>
+                <CardHeader
+                  avatar={
+                    <Avatar sx={{ bgcolor: "#243A73" }} aria-label="recipe">
+                      {account}
+                    </Avatar>
+                  }
+                  title={data.owner[0]}
+                  subheader={convertMillisToString(data.posted_time)}
+                />
+                <CardContent>
+                  <Box >
+                    <Typography gutterBottom variant="h6" component="div" marginBottom={"10px"}>
+                      {data.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {trimmedString}...
+                    </Typography>
+                  </Box>
+                </CardContent>
+              </Box>
+              <CardMedia
+                component="img"
+                sx={{ width: "20%", marginTop: 5, maxHeight: 145 }}
+                image={data.image == null ? image : data.image}
+                alt=""
+              />
+            </Box>
 
-      </CardActions>
-    </Card>
+            <CardActions disableSpacing>
+              <IconButton aria-label="add to favorites" onClick={giveMedal}
+                disabled={data.owner[0] == getAccounts()[0] ? true : false}
+              >
+                <FavoriteIcon sx={{ color: "red" }} />
+                <div className="num_medals">{medal}</div>
+              </IconButton>
+              <Box width="100%" display={'flex'} justifyContent="flex-end">
+                <Button size="small" onClick={goToDetail}>See more</Button>
+              </Box>
+
+            </CardActions>
+          </Card>
+        )
+      }
+    </>
   );
 };
 

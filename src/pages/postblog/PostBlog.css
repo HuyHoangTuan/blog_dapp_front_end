@@ -1,0 +1,50 @@
+.postBlog {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    height: 100vh;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-y: scroll;
+    padding-bottom: 50px;
+}
+
+.create {
+    width: 90%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.create h2 {
+    font-size: 20px;
+    color: #3e8445;
+    margin-bottom: 30px;
+}
+
+.create .publishButton {
+    /* position: absolute; */
+    width: 100px;
+    background: #3e8445;
+    color: #fff;
+    border: 0;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.publish {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.importImg {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+    align-items: center;
+    max-height: 30%;
+}
